@@ -5,10 +5,8 @@ import gptLogo from "./assets/chatgpt.svg";
 import addBtn from "./assets/add-30.png";
 import msgIcon from "./assets/message.svg";
 import homeIcon from "./assets/home.svg";
-import savedIcon from "./assets/bookmark.svg";
 import proIcon from "./assets/rocket.svg";
 import sendBtn from "./assets/send.svg";
-import userIcon from "./assets/user-icon.png";
 import { fetchChatCompletionStream, API_KEY as INITIAL_KEY, DEFAULT_MODEL } from './services/api';
 
 const STARTER_CARDS = [
@@ -53,9 +51,6 @@ function App() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [apiKey, setApiKey] = useState(INITIAL_KEY);
-  const [model, setModel] = useState(DEFAULT_MODEL);
-  const [showSettings, setShowSettings] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [copiedId, setCopiedId] = useState(null);
 
@@ -140,8 +135,8 @@ function App() {
             })
           );
         },
-        apiKey,
-        model
+        INITIAL_KEY,
+        DEFAULT_MODEL
       );
     } catch (err) {
       setError(err.message || 'An unexpected error occurred. Please try again.');
@@ -247,16 +242,6 @@ function App() {
             <img src={homeIcon} alt="Home" />
             Home
           </button>
-          <button
-            className="Saved btns"
-            onClick={() => {
-              setShowSettings(true);
-              setSidebarOpen(false);
-            }}
-          >
-            <img src={savedIcon} alt="Settings" />
-            API Settings
-          </button>
           <button className="UTP btns">
             <img src={proIcon} alt="Upgrade" className="proIcon" />
             Upgrade to Pro
@@ -276,9 +261,9 @@ function App() {
             >
               ☰
             </button>
-            <div className="modelTag" onClick={() => setShowSettings(true)}>
+            <div className="modelTag">
               <span className="statusDot"></span>
-              <span>Model: {model}</span>
+              <span>ChatGPT 4.0 (Groq)</span>
             </div>
           </div>
           <div className="headerActions">
@@ -313,9 +298,11 @@ function App() {
           <div className="chatsContainer">
             {messages.map((msg) => (
               <div key={msg.id} className={`chatMessage ${msg.sender}`}>
-                <div className={`avatar ${msg.sender}`}>
-                  <img src={msg.sender === 'user' ? userIcon : gptLogo} alt="Avatar" />
-                </div>
+                {msg.sender === 'assistant' && (
+                  <div className="avatar assistant">
+                    <img src={gptLogo} alt="ChatGPT Avatar" />
+                  </div>
+                )}
                 <div className="msgContent">
                   <div className="msgBubble">
                     {msg.sender === 'assistant' ? (
@@ -382,43 +369,6 @@ function App() {
           </p>
         </div>
       </div>
-
-      {/* Settings Modal */}
-      {showSettings && (
-        <div className="modalOverlay" onClick={() => setShowSettings(false)}>
-          <div className="modalContent" onClick={(e) => e.stopPropagation()}>
-            <div className="modalTitle">
-              <span>API Settings</span>
-              <button className="closeModal" onClick={() => setShowSettings(false)}>✕</button>
-            </div>
-            <div className="modalField">
-              <label>Groq / Grok API Key</label>
-              <input
-                type="password"
-                className="modalInput"
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-                placeholder="gsk_..."
-              />
-            </div>
-            <div className="modalField">
-              <label>AI Model</label>
-              <select
-                className="modalInput"
-                value={model}
-                onChange={(e) => setModel(e.target.value)}
-              >
-                <option value="openai/gpt-oss-120b">openai/gpt-oss-120b (Recommended)</option>
-                <option value="openai/gpt-oss-20b">openai/gpt-oss-20b</option>
-                <option value="qwen/qwen3.8-27b">qwen/qwen3.8-27b</option>
-              </select>
-            </div>
-            <button className="modalSaveBtn" onClick={() => setShowSettings(false)}>
-              Save & Close
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
