@@ -1,16 +1,16 @@
 :root {
-  --bg-dark: #090b10;
-  --bg-sidebar: #0e1117;
-  --bg-card: rgba(255, 255, 255, 0.03);
-  --bg-card-hover: rgba(255, 255, 255, 0.07);
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-focus: rgba(16, 163, 127, 0.6);
+  --bg-dark: #f5f7fa;
+  --bg-sidebar: #ffffff;
+  --bg-card: rgba(0, 0, 0, 0.03);
+  --bg-card-hover: rgba(0, 0, 0, 0.06);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --border-focus: rgba(16, 163, 127, 0.5);
   --accent-emerald: #10a37f;
-  --accent-emerald-hover: #12b98f;
+  --accent-emerald-hover: #0d8f6e;
   --accent-cyan: #06b6d4;
-  --text-main: #f3f4f6;
-  --text-muted: #9ca3af;
-  --text-dim: #6b7280;
+  --text-main: #111827;
+  --text-muted: #4b5563;
+  --text-dim: #9ca3af;
   --font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-heading: 'Outfit', 'Inter', sans-serif;
 }
@@ -30,6 +30,15 @@ body {
   color: var(--text-main);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Light scrollbar */
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15) !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.28) !important;
 }
 
 /* Custom Scrollbar */
@@ -54,9 +63,9 @@ body {
   display: flex;
   height: 100vh;
   width: 100vw;
-  background: radial-gradient(circle at 65% 25%, rgba(16, 163, 127, 0.07) 0%, transparent 55%),
-    radial-gradient(circle at 25% 75%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
-    #090b10;
+  background: radial-gradient(circle at 65% 25%, rgba(16, 163, 127, 0.06) 0%, transparent 55%),
+    radial-gradient(circle at 25% 75%, rgba(6, 182, 212, 0.04) 0%, transparent 50%),
+    #f5f7fa;
 }
 
 /* Sidebar Styling */
@@ -106,7 +115,7 @@ body {
   font-family: var(--font-heading);
   font-size: 1.4rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #ffffff 30%, #a5f3fc 100%);
+  background: linear-gradient(135deg, #111827 30%, #10a37f 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.3px;
@@ -351,7 +360,7 @@ body {
   justify-content: space-between;
   padding: 0 24px;
   border-bottom: 1px solid var(--border-color);
-  background: rgba(9, 11, 16, 0.7);
+  background: rgba(245, 247, 250, 0.85);
   backdrop-filter: blur(12px);
   z-index: 5;
 }
@@ -443,15 +452,17 @@ body {
 .HeadingDiv {
   flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   flex-direction: column;
   width: 100%;
   max-width: 860px;
-  padding: 30px 20px;
-  gap: 24px;
+  padding: 24px 20px 16px 20px;
+  gap: 20px;
   text-align: center;
   overflow-y: auto;
+  /* allow scrolling if content overflows on small screens */
+  min-height: 0;
 }
 
 .welcomeWrapper {
@@ -484,13 +495,14 @@ body {
 
 .Hello {
   font-family: var(--font-heading);
-  font-size: 3.2rem;
+  font-size: 2.8rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #10a37f 100%);
+  background: linear-gradient(135deg, #111827 0%, #374151 50%, #10a37f 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -1px;
   animation: fadeIn 0.8s ease-out;
+  line-height: 1.2;
 }
 
 .subHeading {
@@ -616,16 +628,17 @@ body {
 }
 
 .chatMessage.user .msgBubble {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(135deg, #e0f7f0 0%, #d1fae5 100%);
+  border: 1px solid rgba(16, 163, 127, 0.25);
   border-top-right-radius: 4px;
+  color: #111827;
 }
 
 .chatMessage.assistant .msgBubble {
-  background: rgba(255, 255, 255, 0.035);
+  background: #ffffff;
   border: 1px solid var(--border-color);
   border-top-left-radius: 4px;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
 /* Markdown formatting inside assistant bubble */
@@ -638,22 +651,24 @@ body {
 }
 
 .msgBubble pre {
-  background: #0d1117;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #f3f4f6;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 12px 14px;
   overflow-x: auto;
   margin: 12px 0;
   font-family: 'Fira Code', 'Courier New', monospace;
   font-size: 0.88rem;
+  color: #1f2937;
 }
 
 .msgBubble code {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.07);
   padding: 2px 6px;
   border-radius: 4px;
   font-family: monospace;
   font-size: 0.88rem;
+  color: #0f766e;
 }
 
 .msgBubble pre code {
@@ -781,9 +796,9 @@ body {
   width: 100%;
   min-height: 58px;
   padding: 16px 62px 16px 22px;
-  background: rgba(18, 21, 30, 0.92);
+  background: #ffffff;
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.14);
   border-radius: 18px;
   color: var(--text-main);
   font-family: var(--font-family);
@@ -791,7 +806,7 @@ body {
   font-weight: 400;
   outline: none;
   resize: none;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.6);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -802,8 +817,8 @@ body {
 
 .inputField:focus {
   border-color: var(--border-focus);
-  box-shadow: 0 0 30px rgba(16, 163, 127, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.12);
-  background: rgba(22, 26, 38, 0.96);
+  box-shadow: 0 0 0 3px rgba(16, 163, 127, 0.15), 0 4px 16px rgba(0,0,0,0.08);
+  background: #ffffff;
 }
 
 .sendBtn {
@@ -823,7 +838,7 @@ body {
 }
 
 .sendBtn:disabled {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
   cursor: not-allowed;
   box-shadow: none;
 }
@@ -870,13 +885,13 @@ body {
 }
 
 .modalContent {
-  background: #0f131a;
+  background: #ffffff;
   border: 1px solid var(--border-color);
   border-radius: 18px;
   padding: 24px;
   width: 100%;
   max-width: 460px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -912,7 +927,7 @@ body {
 }
 
 .modalInput {
-  background: rgba(255, 255, 255, 0.05);
+  background: #f9fafb;
   border: 1px solid var(--border-color);
   padding: 10px 14px;
   border-radius: 10px;
@@ -977,7 +992,22 @@ body {
   }
 
   .Hello {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
+  }
+
+  .HeadingDiv {
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 16px;
+  }
+
+  .welcomeWrapper {
+    gap: 8px;
+  }
+
+  .welcomeIcon {
+    width: 48px;
+    height: 48px;
   }
 
   .msgContent {
