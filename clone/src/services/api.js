@@ -1,7 +1,7 @@
 export const API_KEY = import.meta.env.VITE_GROQ_API_KEY || "";
 
-// Current recommended Groq model (llama3-70b-8192 was decommissioned)
-export const DEFAULT_MODEL = "llama-3.3-70b-versatile";
+// Confirmed available model on this Groq account
+export const DEFAULT_MODEL = "openai/gpt-oss-120b";
 
 export async function fetchChatCompletionStream(
   messages,
