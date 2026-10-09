@@ -1,7 +1,7 @@
 export const API_KEY = import.meta.env.VITE_GROQ_API_KEY || "";
 
-// Valid Groq model — llama3-70b-8192 is stable and fast
-export const DEFAULT_MODEL = "llama3-70b-8192";
+// Current recommended Groq model (llama3-70b-8192 was decommissioned)
+export const DEFAULT_MODEL = "llama-3.3-70b-versatile";
 
 export async function fetchChatCompletionStream(
   messages,
